@@ -27,6 +27,8 @@ Route::get('wechat/upload','wechat\WechatController@upload');
 Route::post('wechat/upload_do','wechat\WechatController@upload_do');
 Route::get('wechat/menu/create_menu','wechat\MenuController@create_menu');
 
+Route::any('wechat/event','wechat\MenuController@event');
+
 
 Route::prefix('admin')->middleware('CheckLogin')->group(function(){
     Route::get('foot','admin\usercontroller@foot')->name('foot');
