@@ -23,6 +23,10 @@ Route::get('/wechat/get_user_list','wechat\WechatController@get_user_list'); //�
 Route::get('/wechat/get_user_info','wechat\WechatController@get_user_info'); //获取用户详情
 Route::get('wechat/login','wechat\WechatController@wechat_login');
 Route::get('wechat/code','wechat\WechatController@code');
+Route::get('wechat/upload','wechat\WechatController@upload');
+Route::post('wechat/upload_do','wechat\WechatController@upload_do');
+Route::get('wechat/menu/create_menu','wechat\MenuController@create_menu');
+
 
 Route::prefix('admin')->middleware('CheckLogin')->group(function(){
     Route::get('foot','admin\usercontroller@foot')->name('foot');
