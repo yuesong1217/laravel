@@ -26,6 +26,13 @@ Route::get('wechat/code','wechat\WechatController@code');
 Route::get('wechat/upload','wechat\WechatController@upload');
 Route::post('wechat/upload_do','wechat\WechatController@upload_do');
 Route::get('wechat/menu/create_menu','wechat\MenuController@create_menu');
+Route::get('wechat/menu/create','wechat\MenuController@create');
+// Route::any('wechat/menu/create_do','wechat\MenuController@create_do');
+
+Route::get('agent/menu_list','wechat\MenuController@menu_list');
+Route::post('agent/create_menu','wechat\MenuController@create_menu');
+Route::get('agent/load_menu','wechat\MenuController@load_menu');
+Route::get('agent/del_menu','wechat\MenuController@del_menu');
 
 Route::any('wechat/event','wechat\MenuController@event');
 
@@ -156,6 +163,23 @@ Route::post('role/logindo','role\RoleController@logindo');
 //     Route::get('list','BrandController@list')->name('list');
 //     Route::get('add','BrandController@add')->name('add');
 // });
+
+Route::get('likeyou/get_user_list/{id}','likeyou\WechatController@getUserList');
+Route::get('likeyou/get_tag_list','likeyou\WechatController@getTagList');
+Route::get('likeyou/createTag','likeyou\WechatController@createTag');
+Route::post('likeyou/createfans/{id}','likeyou\WechatController@createfans');
+Route::get('likeyou/sendmsg/{id}','likeyou\WechatController@sendmsg');
+Route::post('likeyou/sendmsg_do/{id}','likeyou\WechatController@sendmsg_do');
+Route::post('likeyou/create_do','likeyou\WechatController@create_do');
+Route::get('likeyou/login','likeyou\WechatController@login');
+Route::get('likeyou/wechat_login','likeyou\WechatController@wechat_login');
+Route::get('likeyou/code','likeyou\WechatController@code');
+Route::get('likeyou/create_qrcode','likeyou\WechatController@create_qrcode');
+Route::get('likeyou/create_menu','likeyou\WechatController@create_menu');
+Route::post('likeyou/menu_do','likeyou\WechatController@menu_do');
+Route::get('likeyou/menu_list','likeyou\WechatController@menu_list');
+Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
+
 
 
 

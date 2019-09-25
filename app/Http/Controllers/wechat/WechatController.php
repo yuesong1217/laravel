@@ -14,10 +14,10 @@ class WechatController extends Controller
     {
         $result = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/get?access_token='.$this->get_wechat_access_token().'&next_openid=');
         $re = json_decode($result,1);
+        // dd($re);
         $last_info = [];
         foreach($re['data']['openid'] as $k=>$v){
-            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='
-                '&openid='.$v.'&lang=zh_CN');
+            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN');
             $user = json_decode($user_info,1);
             $last_info[$k]['nickname'] = $user['nickname'];
             $last_info[$k]['openid'] = $v;
@@ -65,7 +65,7 @@ class WechatController extends Controller
 
     public function get_user_info()
     {
-        $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN');
+        $user_info = file_get_contents("https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$v.'&lang=zh_CN");
             $user = json_decode($user_info,1);
         return view('wechat/get_user_info',['user'=>$user]);
     }
