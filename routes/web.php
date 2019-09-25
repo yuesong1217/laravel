@@ -178,6 +178,7 @@ Route::get('likeyou/create_qrcode','likeyou\WechatController@create_qrcode');
 Route::get('likeyou/create_menu','likeyou\WechatController@create_menu');
 Route::post('likeyou/menu_do','likeyou\WechatController@menu_do');
 Route::get('likeyou/menu_list','likeyou\WechatController@menu_list');
+Route::get('likeyou/event','likeyou\WechatController@event');
 Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
 
 
