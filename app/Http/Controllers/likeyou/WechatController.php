@@ -269,6 +269,16 @@ class WechatController extends Controller
         $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
+        //获取用户的基本信息
+        $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
+            // dd($user_info);
+            $user = json_decode($user_info,1);
+        if($xml_arr['MsgType']=="event"){
+            if($xml_arr['Event']=="subscribe"){
+                 $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
+            $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            echo $xml_str;
+            }
+        }
     }
-
 }
