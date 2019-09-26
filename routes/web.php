@@ -34,7 +34,7 @@ Route::post('agent/create_menu','wechat\MenuController@create_menu');
 Route::get('agent/load_menu','wechat\MenuController@load_menu');
 Route::get('agent/del_menu','wechat\MenuController@del_menu');
 
-Route::any('wechat/event','wechat\MenuController@event');
+// Route::any('wechat/event','wechat\MenuController@event');
 
 
 Route::prefix('admin')->middleware('CheckLogin')->group(function(){
@@ -178,7 +178,7 @@ Route::get('likeyou/create_qrcode','likeyou\WechatController@create_qrcode');
 Route::get('likeyou/create_menu','likeyou\WechatController@create_menu');
 Route::post('likeyou/menu_do','likeyou\WechatController@menu_do');
 Route::get('likeyou/menu_list','likeyou\WechatController@menu_list');
-Route::get('likeyou/event','likeyou\WechatController@event');
+Route::any('wechat/event','likeyou\WechatController@event');
 Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
 
 
