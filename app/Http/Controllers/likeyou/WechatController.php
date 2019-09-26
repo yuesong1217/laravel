@@ -275,17 +275,18 @@ class WechatController extends Controller
         $user = json_decode($user_info,1);
         if($xml_arr['MsgType']=="event"){
             if($xml_arr['Event']=="subscribe"){
+                $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
+                if (!$db_user) {
+                    DB::table("wechat_user")->insert([
+                        'openid'=>$xml_arr['FromUserName'],
+                        'add_time'=>time()
+                ]);
+                }
+            }
                  $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
-            $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
-            if (!$db_user) {
-                DB::table("wechat_user")->insert([
-                    'openid'=>$xml_arr['FromUserName'],
-                    'add_time'=>time()
-                ]);
-            }
-            }
+            
         }
     }
 }
