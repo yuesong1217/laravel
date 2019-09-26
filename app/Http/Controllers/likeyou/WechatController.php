@@ -270,23 +270,24 @@ class WechatController extends Controller
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
         //获取用户的基本信息
-        $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
-            // dd($user_info);
-        $user = json_decode($user_info,1);
-        if($xml_arr['MsgType']=="event"){
-            if($xml_arr['Event']=="subscribe"){
-                $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
-                if (!$db_user) {
-                    DB::table("wechat_user")->insert([
-                        'openid'=>$xml_arr['FromUserName'],
-                        'add_time'=>time()
+        if($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe'){
+            //关注
+            //opnid拿到用户基本信息
+            $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN';
+            $user_re = file_get_contents($url);
+            $user_info = json_decode($user_re,1);
+            //存入数据库
+            $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
+            if(empty($db_user)){
+                //没有数据，存入
+                DB::("wechat_user")->insert([
+                    'openid'=>$xml_arr['FromUserName'],
+                    'add_time'=>time()
                 ]);
-                }
             }
-                 $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
+            $message = '欢迎'.$user_info['nickname'].'同学，感谢您的关注';
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
-            
         }
     }
 }
