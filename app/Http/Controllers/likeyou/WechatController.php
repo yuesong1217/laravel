@@ -280,7 +280,7 @@ class WechatController extends Controller
             $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
             if(empty($db_user)){
                 //没有数据，存入
-                DB::("wechat_user")->insert([
+                DB::table("wechat_user")->insert([
                     'openid'=>$xml_arr['FromUserName'],
                     'add_time'=>time()
                 ]);
