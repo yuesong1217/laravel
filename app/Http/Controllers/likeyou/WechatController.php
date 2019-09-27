@@ -276,7 +276,7 @@ class WechatController extends Controller
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN';
             $user_re = file_get_contents($url);
             $user_info = json_decode($user_re,1);
-            // dd($user_info);
+            dd($user_info);
             //存入数据库
             $db_user = DB::table("wechat_user")->where(['openid'=>$xml_arr['FromUserName']])->first();
             // dd($db_user);
