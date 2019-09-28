@@ -32,7 +32,7 @@ class WechatController extends Controller
 
     public function event()
     {
-        echo $_GET['echostr'];
+        echo $_GET;
         // $xml_string = file_get_contents('php://input');
         // $wechat_log_path = storage_path('logs/wechat/'.date('Y-m-d H:i:s').'.log');
         // file_get_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
