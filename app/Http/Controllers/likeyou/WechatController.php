@@ -58,7 +58,8 @@ class WechatController extends Controller
         $result = $this->tools->curl_post($url,$tag);
         // dd($result);
         $res = json_decode($result,1);
-        dd($res);
+        // dd($res);
+        return redirect('likeyou/get_tag_list');
     }
 
     public function getTagList()

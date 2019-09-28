@@ -184,6 +184,12 @@ Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
 
 
 
+Route::get('exam/get_wechat_access_token','exam\WechatController@get_wechat_access_token');
+
+
+
+
+
 
 
 
