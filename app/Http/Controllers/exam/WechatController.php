@@ -41,7 +41,6 @@ class WechatController extends Controller
         $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
-
         if ($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe') {
             // echo 123;
             $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');

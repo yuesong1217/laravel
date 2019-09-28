@@ -262,7 +262,7 @@ class WechatController extends Controller
     public function event()
     {
         $xml_string = file_get_contents('php://input');  //获取
-        $wechat_log_psth = storage_path('logs/wechat/'.date('Y-m-d').'.log');
+        $wechat_log_psth = storage_path();
         file_put_contents($wechat_log_psth,"<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
         file_put_contents($wechat_log_psth,$xml_string,FILE_APPEND);
         file_put_contents($wechat_log_psth,"\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
