@@ -272,9 +272,19 @@ class WechatController extends Controller
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
         //获取用户的基本信息
         if ($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe') {
+
             $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->tools->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
             // dd($user_info);
             $user = json_decode($user_info,1);
+            $user_weixin = DB::table('user_weixin')->where['openid'=>$xml_arr['FromUserName']]->first();
+            if (!$user_weixin) {
+                DB::table('user_weixin')->insert([
+                        'openid'   => $xml_arr['FromUserName'],
+                        'nickname' => $user['nickname'],
+                        'add_time' => time(),
+                        'event'    => $xml_arr['Event']
+                    ]);
+            }
             $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
