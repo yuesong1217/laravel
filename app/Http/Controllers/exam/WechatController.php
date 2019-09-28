@@ -64,7 +64,7 @@ class WechatController extends Controller
             $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
             $user = json_decode($user_info,1);
             // dd($user['openid']);
-            $key = 'unsubscribeid';
+            $key = $user['openid'];
             $this->redis->set($key,$user['openid']);
         }
     }
