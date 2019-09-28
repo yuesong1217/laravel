@@ -32,7 +32,7 @@ class WechatController extends Controller
 
     public function event()
     {
-        echo $_GET['echostr'];
+        echo 123;
     }
 
 }
