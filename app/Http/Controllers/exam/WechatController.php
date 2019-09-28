@@ -27,6 +27,7 @@ class WechatController extends Controller
             $res = json_decode($result,1);
             // dd($res);
             $this->redis->set($access_token_key,$res['access_token'],$res['expires_in']);
+            // dd($res);
             return $res['access_token'];
         }
     }
@@ -43,7 +44,7 @@ class WechatController extends Controller
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
         if ($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe') {
             // echo 123;
-            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$this->get_wechat_access_token().'&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
+            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
             $user = json_decode($user_info,1);
             // dd($user);
             $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
