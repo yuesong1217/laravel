@@ -52,13 +52,6 @@ class WechatController extends Controller
             
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
-            $arr = [
-                        'openid'   => $user['openid'],
-                        'nickname' => $user['nickname'],
-                        'msgtype'  => $xml_arr['MsgType'],
-                        'event'    => $xml_arr['Event']
-            ];
-            DB::table('user_weixin')->insert($arr);
         }
     }
 
