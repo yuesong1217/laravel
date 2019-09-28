@@ -4,6 +4,7 @@ namespace App\Http\Controllers\exam;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class WechatController extends Controller
 {
@@ -47,8 +48,21 @@ class WechatController extends Controller
             $user = json_decode($user_info,1);
             // dd($user);
             $message = '欢迎'.$user['nickname'].'同学，感谢您的关注';
+            $data = DB::table('user_weixin')->where(['openid'=>$xml_arr['FromUserName']])->first();
+            // dd($data);
+            if (!$data) {
+                
+            
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
+            $arr = [
+                        'openid'   => $user['openid'],
+                        'nickname' => $user['nickname'],
+                        'msgtype'  => $xml_arr['MsgType'],
+                        'event'    => $xml_arr['Event']
+            ];
+            DB::table('user_weixin')->insert($arr);
+        }
         }
     }
 
