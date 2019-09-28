@@ -180,6 +180,7 @@ Route::post('likeyou/menu_do','likeyou\WechatController@menu_do');
 Route::get('likeyou/menu_list','likeyou\WechatController@menu_list');
 // Route::any('wechat/event','likeyou\WechatController@event');
 Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
+Route::get('likeyou/update/{id}','likeyou\WechatController@delete_menu');
 
 
 
