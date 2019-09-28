@@ -46,17 +46,6 @@ class WechatController extends Controller
             // echo 123;
             $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
             $user = json_decode($user_info,1);
-
-            $data = DB::table('user_weixin')->where(['openid'=>$xml_arr['FromUserName']])->first();
-            if (!$data) {
-                DB::table('user_weixin')->insert([
-                        'openid'=>$user['openid'],
-                        'nickname'=>$user['nickname'],
-                        'addtime'=>time(),
-                        'event'=>$xml_arr['Event']
-
-                    ]);
-            }
             // dd($user);
             $message = '您好'.$user['nickname'].'，当前时间为'.date('Y-m-d H:i:s');
                 
