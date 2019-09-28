@@ -42,6 +42,11 @@ class WechatController extends Controller
         $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
         $xml_arr = (array)$xml_obj;
         \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
+        if ($xml_arr['MsgType'] == 'event' && $xml_arr['Evnet'] == 'unsubscribe') {
+            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
+            $users = json_decode($user_info,1);
+
+        }
         if ($xml_arr['MsgType'] == 'event' && $xml_arr['Event'] == 'subscribe') {
             // echo 123;
             $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
@@ -50,6 +55,14 @@ class WechatController extends Controller
             $message = '您好'.$user['nickname'].'，当前时间为'.date('Y-m-d H:i:s');
                 
             
+            $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
+            echo $xml_str;
+        }
+
+        if ($user['openid'] == $users['openid']) {
+            $user_info = file_get_contents('https://api.weixin.qq.com/cgi-bin/user/info?access_token=25_HqsPIok8bO17cY5Ce4a5zLk5ompn22vKGk2LyuIh13To5GS855oU9_JfWstv9FbyJpYTZ6Az49fizMqOM4zrtA2pgTk1XKMWbziLcRyEtnoH2Q_Xe71FGJqRHBmbqoGUq7ujgSOQ3IBH9eBvBITjAFAPWH&openid='.$xml_arr['FromUserName'].'&lang=zh_CN');
+            $user = json_decode($user_info,1);
+            $message = '欢迎回来'.$user['nickname'].'，当前时间为'.date('Y-m-d H:i:s');
             $xml_str = '<xml><ToUserName><![CDATA['.$xml_arr['FromUserName'].']]></ToUserName><FromUserName><![CDATA['.$xml_arr['ToUserName'].']]></FromUserName><CreateTime>'.time().'</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA['.$message.']]></Content></xml>';
             echo $xml_str;
         }
