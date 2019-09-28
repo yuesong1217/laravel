@@ -32,14 +32,15 @@ class WechatController extends Controller
 
     public function event()
     {
-        $xml_string = file_get_contents('php://input');
-        $wechat_log_path = storage_path('logs/wechat/'.date('Y-m-d H:i:s').'.log');
-        file_get_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
-        file_get_contents($wechat_log_path,$xml_string,FILE_APPEND);
-        file_get_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
-        $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
-        $xml_arr = (array)$xml_obj;
-        \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
+        echo $_GET['echostr'];
+        // $xml_string = file_get_contents('php://input');
+        // $wechat_log_path = storage_path('logs/wechat/'.date('Y-m-d H:i:s').'.log');
+        // file_get_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<\n",FILE_APPEND);
+        // file_get_contents($wechat_log_path,$xml_string,FILE_APPEND);
+        // file_get_contents($wechat_log_path,"<<<<<<<<<<<<<<<<<<<<<<<<<<<\n\n",FILE_APPEND);
+        // $xml_obj = simplexml_load_string($xml_string,'SimpleXMLElement',LIBXML_NOCDATA);
+        // $xml_arr = (array)$xml_obj;
+        // \Log::Info(json_encode($xml_arr,JSON_UNESCAPED_UNICODE));
     }
 
 }
