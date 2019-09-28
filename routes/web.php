@@ -185,7 +185,8 @@ Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
 
 
 Route::get('exam/get_wechat_access_token','exam\WechatController@get_wechat_access_token');
-Route::any('wechat/event','exam\WechatController@event');
+Route::any('wechat/event','likeyou\WechatController@event');
+// Route::any('wechat/event','exam\WechatController@event');
 
 
 
