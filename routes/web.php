@@ -202,7 +202,9 @@ Route::any('wechat/event','exam\WechatController@event');
 Route::get('hadmin/login','hadmin\LoginController@login');
 Route::post('hadmin/login_do','hadmin\LoginController@login_do');
 Route::post('hadmin/getCode','hadmin\LoginController@getCode');
-
+Route::get('hadmin/qrcode','hadmin\LoginController@qrcode');
+Route::get('hadmin/code','hadmin\LoginController@code');
+Route::get('hadmin/wechat_login','hadmin\LoginController@wechat_login');
 Route::get('hadmin/index','hadmin\IndexController@index');//后台首页
 
 

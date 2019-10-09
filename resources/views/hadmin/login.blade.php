@@ -28,7 +28,6 @@
                     <button type="button" class="getcode">获取验证码</button>
                 </div>
                 <button  class="btn btn-primary block full-width m-b">登 录</button>
-                <img src="/hadmin/img/0.jpeg" alt="" width="500" style="margin-left:-100px;" />
 
 
                 <p class="text-muted text-center"> <a href="login.html#"><small>忘记密码了？</small></a> | <a href="register.html">注册一个新账号</a>
