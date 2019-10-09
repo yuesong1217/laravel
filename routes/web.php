@@ -188,6 +188,22 @@ Route::get('likeyou/delete_menu/{id}','likeyou\WechatController@delete_menu');
 Route::get('exam/get_wechat_access_token','exam\WechatController@get_wechat_access_token');
 Route::any('wechat/event','exam\WechatController@event');
 // Route::any('wechat/event','exam\WechatController@event');
+// 
+
+
+
+
+
+
+
+
+
+
+Route::get('hadmin/login','hadmin\LoginController@login');
+Route::post('hadmin/login_do','hadmin\LoginController@login_do');
+Route::post('hadmin/getCode','hadmin\LoginController@getCode');
+
+Route::get('hadmin/index','hadmin\IndexController@index');//后台首页
 
 
 
