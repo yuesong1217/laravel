@@ -1,27 +1,10 @@
-<!DOCTYPE html>
-<html>
+@extends('layouts.hadmin')
 
-<head>
+@section('title')
+登录
+@endsection
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-    <title> - 登录</title>
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-
-    <link rel="shortcut icon" href="favicon.ico"> <link href="/hadmin/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
-    <link href="/hadmin/css/font-awesome.css?v=4.4.0" rel="stylesheet">
-
-    <link href="/hadmin/css/animate.css" rel="stylesheet">
-    <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
-    <!--[if lt IE 9]>
-    <meta http-equiv="refresh" content="0;ie.html" />
-    <![endif]-->
-    <script>if(window.top !== window.self){ window.top.location = window.location;}</script>
-</head>
-
+@section('content')
 <body class="gray-bg">
 
     <div class="middle-box text-center loginscreen  animated fadeInDown">
@@ -75,9 +58,14 @@
         });
     </script>
 
+
+
+    </body>
+@endsection
+
+
+
     
     
 
-</body>
 
-</html>
