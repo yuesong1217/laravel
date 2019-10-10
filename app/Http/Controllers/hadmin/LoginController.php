@@ -83,28 +83,26 @@ class LoginController extends Controller
     public function qrcode()
     {
         $id = time().rand(1000,9999);
-        $redirect_url="http://39.106.89.199/hadmin/code?id=".$id;
+        $redirect_url="http://39.106.89.199/hadmin/wechat_login?id=".$id;
         return view('hadmin.qrcode',['redirect_url'=>$redirect_url,'id'=>$id]);
     }
 
     public function wechat_login()
     {
-        $redirect_url = "http://www.yuesong.com/hadmin/code";
-        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.env('WECHAT_APPID').'&redirect_uri='.urlencode($redirect_url).'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
-        header('Location:'.$url);
+        $req = request()->input('code');
+        $host = $_SERVER['HTTP_HOST'];  //域名
+        $uri = $_SERVER['REQUEST_URI']; //路由参数
+        if(!empty($req)){
+            $result = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx8918aabe1b28f58a&secret=972b14bfb6d98e92898eb57ec5e070c1&code='.$req.'&grant_type=authorization_code');
+            $re = json_decode($result,1);
+            $user_info=file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$re['access_token'].'&openid='.$re['openid'].'&lang=zh_CN');
+            $wechat_user_info=json_decode($user_info,1);
+            return $wechat_user_info;
+        }else{
+            $redirect_uri = urlencode("http://".$host.$uri);
+            $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8918aabe1b28f58a&redirect_uri='.$redirect_uri.'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
+            header('Location:'.$url);
+        }
     }
-
-    public function code(Request $request)
-    {
-        $req = $request->all();
-        $result = file_get_contents('https://api.weixin.qq.com/sns/oauth2/access_token?appid='.env('WECHAT_APPID').'&secret='.env('WECHAT_APPSECRET').'&code='.$req['code'].'&grant_type=authorization_code');
-        $re = json_decode($result,1);
-        // dd($re);
-        $user_info = file_get_contents('https://api.weixin.qq.com/sns/userinfo?access_token='.$re['access_token'].'&openid='.$re['openid'].'&lang=zh_CN');
-        $wechat_user_info = json_decode($user_info,1);
-        // dd($wechat_user_info);
-        dd($wechat_user_info['openid']);
-    }
-
 
 }
