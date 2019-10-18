@@ -1,7 +1,6 @@
 @extends('layouts.hadmin')
 
 @section('title')
-登录
 @endsection
 
 @section('content')

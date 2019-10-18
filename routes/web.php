@@ -191,21 +191,85 @@ Route::any('wechat/event','exam\WechatController@event');
 // 
 
 
+//资源控制器
+Route::resource('api/user', 'Api\UserController');
+
+Route::get('test/add',function(){
+        return view('test.add');
+});
+Route::get('test/show',function(){
+        return view('test.show');
+});
+Route::get('test/find',function(){
+        return view('test.find');
+});
+Route::get('test/delete',function(){
+        return view('test.delete');
+});
+
+
+Route::get('api/test/add','Api\InterFaceController@add');
+Route::get('api/test/delete','Api\InterFaceController@delete');
+Route::get('api/test/update','Api\InterFaceController@update');
+Route::get('api/test/find','Api\InterFaceController@find');
+Route::get('api/test/show','Api\InterFaceController@show');
+
+//天气接口
+Route::any('api/weather','Api\InterFaceController@weather');
+
+Route::resource('api/goods', 'Api\GoodsController');
+
+Route::get('good/add',function(){
+        return view('goods.add');
+});
+Route::get('good/show',function(){
+        return view('goods.show');
+});
+
+
+Route::get('info','Api\InterFaceController@info');
 
 
 
 
 
+Route::any('api/type','Api\InterFaceController@type');
+Route::prefix('hadmin')->group(function(){
+    // Route::get('login','hadmin\LoginController@login');
+    // Route::post('login_do','hadmin\LoginController@login_do');
+    // Route::post('getCode','hadmin\LoginController@getCode');
+    Route::any('index','hadmin\IndexController@index');//后台首页
+    Route::any('cate/add','hadmin\CateController@add');
+    Route::post('cate/add_do','hadmin\CateController@add_do');
+    Route::post('cate/checkname','hadmin\CateController@checkname');
+    Route::any('cate/list','hadmin\CateController@list');
+    Route::any('cate/delete/{id}','hadmin\CateController@delete');
+    Route::any('cate/edit/{id}','hadmin\CateController@edit');
+    Route::any('cate/update/{id}','hadmin\CateController@update');
+    Route::any('type/add','hadmin\TypeController@add');
+    Route::post('type/add_do','hadmin\TypeController@add_do');
+    Route::any('type/list','hadmin\TypeController@list');
+    Route::any('attr/add','hadmin\AttrController@add');
+    Route::post('attr/add_do','hadmin\AttrController@add_do');
+    Route::any('attr/list','hadmin\AttrController@list');
+    Route::any('goods/add','hadmin\GoodsController@add');
+    Route::post('goods/add_do','hadmin\GoodsController@add_do');
+    Route::any('goods/list','hadmin\GoodsController@list');
+    Route::any('goods/getattr','hadmin\GoodsController@getattr');
+    Route::any('attr/show','hadmin\TypeController@show');
+    Route::any('attr/search','hadmin\AttrController@search');
+    Route::any('goods/attr','hadmin\GoodsController@attr');
+    Route::any('goods/update','hadmin\GoodsController@update');
+    Route::any('product/add','hadmin\ProductController@add');
+    Route::any('product/add_do','hadmin\ProductController@add_do');
+
+
+});
 
 
 
-Route::get('hadmin/login','hadmin\LoginController@login');
-Route::post('hadmin/login_do','hadmin\LoginController@login_do');
-Route::post('hadmin/getCode','hadmin\LoginController@getCode');
-Route::get('hadmin/qrcode','hadmin\LoginController@qrcode');
-Route::get('hadmin/code','hadmin\LoginController@code');
-Route::get('hadmin/wechat_login','hadmin\LoginController@wechat_login');
-Route::get('hadmin/index','hadmin\IndexController@index');//后台首页
+
+
 
 
 

@@ -16,6 +16,7 @@
 
     <link href="/hadmin/css/animate.css" rel="stylesheet">
     <link href="/hadmin/css/style.css?v=4.1.0" rel="stylesheet">
+    <script type="text/javascript" src="/index/js/jquery.min.js"></script>
 </head>
 <div class="container">
     @yield('content')

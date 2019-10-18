@@ -3,7 +3,7 @@
  * @Author: Marte
  * @Date:   2019-08-08 14:13:06
  * @Last Modified by:   Marte
- * @Last Modified time: 2019-08-13 09:21:06
+ * @Last Modified time: 2019-10-17 16:39:15
  */
     function upload($name)
     {
@@ -28,6 +28,19 @@
                 $v->level=$level;
                 $arr[]=$v;
                 createTree($data,$v->cate_id,$level+1);
+            }
+        }
+        return $arr;
+    }
+
+    function createCate($data,$pid=0,$level=0)
+    {
+        static $arr=[];
+        foreach ($data as $k => $v) {
+            if ($v['pid']==$pid) {
+                $v['level']=$level;
+                $arr[]=$v;
+                createTree($data,$v['cate_id'],$level+1);
             }
         }
         return $arr;
