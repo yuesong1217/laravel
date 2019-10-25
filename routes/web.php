@@ -217,7 +217,7 @@ Route::get('api/test/show','Api\InterFaceController@show');
 //天气接口
 Route::any('api/weather','Api\InterFaceController@weather');
 
-Route::resource('api/goods', 'Api\GoodsController');
+// Route::resource('api/goods', 'Api\GoodsController');
 
 Route::get('good/add',function(){
         return view('goods.add');
@@ -266,6 +266,24 @@ Route::prefix('hadmin')->group(function(){
 
 });
 
+
+
+Route::prefix('api')->middleware('apiheader')->group(function(){
+    Route::any('goods/news','Api\ApiGoodsController@news');
+    Route::any('goods/cate','Api\ApiGoodsController@cate');
+    Route::post('goods/cate_show','Api\ApiGoodsController@cate_show');
+    Route::any('goods/getAttr','Api\ApiGoodsController@getAttr');
+    Route::any('goods/login','Api\ApiGoodsController@login');
+    Route::any('goods/token','Api\ApiGoodsController@token');
+    Route::middleware('apitoken')->group(function(){
+        Route::any('goods/caradd','Api\ApiGoodsController@caradd');
+        Route::any('goods/car_list','Api\ApiGoodsController@car_list');
+    });
+    
+});
+
+
+Route::get('api/today','Api\InterFaceController@today');
 
 
 

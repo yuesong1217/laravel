@@ -93,4 +93,23 @@ class InterFaceController extends Controller
     {
         echo phpinfo();
     }
+
+    public function today()
+    {
+        $name = request()->input('name');
+        $age = request()->input('age');
+        $sign = request()->input('sign');
+        if (empty($name) || empty($age)) {
+            return json_encode(['code'=>0,'msg'=>'参数不能为空']);
+        }
+        if (empty($sign)) {
+            return json_encode(['code'=>0,'msg'=>'签名不能为空']);
+        }
+        $mysign = md5("1902",$name.$age);
+        if (!$mysign != $sign) {
+            return json_encode(['code'=>1,'msg'=>'签名不对']);
+        }
+
+        $res = DB::table('today')->insert(['name'=>$name,'age'=>$age,'ip'=>$_SERVER['REMOTE_ADDR']]);
+    }
 }
