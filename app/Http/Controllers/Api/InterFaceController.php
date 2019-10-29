@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use DB;
 use Cache;
+use App\Tools\Aes;
+use App\Tools\Rsa;
 class InterFaceController extends Controller
 {
     public function weather()
@@ -96,20 +98,62 @@ class InterFaceController extends Controller
 
     public function today()
     {
-        $name = request()->input('name');
-        $age = request()->input('age');
-        $sign = request()->input('sign');
-        if (empty($name) || empty($age)) {
-            return json_encode(['code'=>0,'msg'=>'参数不能为空']);
-        }
-        if (empty($sign)) {
-            return json_encode(['code'=>0,'msg'=>'签名不能为空']);
-        }
-        $mysign = md5("1902",$name.$age);
-        if (!$mysign != $sign) {
-            return json_encode(['code'=>1,'msg'=>'签名不对']);
-        }
+       $url = 'http://wym.yingge.fun/api/user/test';
+       $rand = rand(1000,9999);
+       $name = '岳松';
+       $age = '19';
+       $mobile = '17805271790';
+       // $time = time();
+       $sign = sha1('1902age='.$age.'&mobile='.$mobile.'&name='.$name.'&rand='.$rand.'');
+       // dd($sign);
+       $url .= '?name='.$name.'&age='.$age.'&mobile='.$mobile.'&rand='.$rand.'&sign='.$sign;
+       // dd($url);
+       $data = file_get_contents($url);
+       var_dump($data);die;
+    }
 
-        $res = DB::table('today')->insert(['name'=>$name,'age'=>$age,'ip'=>$_SERVER['REMOTE_ADDR']]);
+    public function aes()
+    {
+        $obj = new Aes('123456');
+        $name = '岳松';
+        $res = $obj->encrypt($name);
+        dump($res);
+        $result = $obj->decrypt($res);
+        dd($result);
+    }
+
+    public function rsa()
+    {
+        $Rsa = new Rsa();
+        // $keys = $Rsa->new_rsa_key(); //生成完key之后应该记录下key值，这里省略
+        // p($keys);die;
+        $privkey = file_get_contents("cert_private.pem");//$keys['privkey'];
+        $pubkey  = file_get_contents("cert_public.pem");//$keys['pubkey'];
+        //echo $privkey;die;
+        //初始化rsaobject
+        $Rsa->init($privkey, $pubkey,TRUE);
+         
+        //原文
+        $data = '学习PHP太开心了';
+         
+        //私钥加密示例
+        $encode = $Rsa->priv_encode($data);
+        dump($encode);
+        $ret = $Rsa->pub_decode($encode);
+        dump($ret);
+         
+        //公钥加密示例
+        $encode = $Rsa->pub_encode($data);
+         
+        dump($encode);
+        $ret = $Rsa->priv_decode($encode);
+        dump($ret);
+    }
+
+    public function exam()
+    {
+        $url = "https://www.avatardata.cn/Docs/Api/bb84699c-80a3-427e-b710-9b5e36646c13";
+        $data = file_get_contents($url);
+        dd($data);
     }
 }

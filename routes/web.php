@@ -283,7 +283,10 @@ Route::prefix('api')->middleware('apiheader')->group(function(){
 });
 
 
-Route::get('api/today','Api\InterFaceController@today');
+Route::get('today','Api\InterFaceController@today');
+Route::get('aes','Api\InterFaceController@aes');
+Route::get('rsa','Api\InterFaceController@rsa');
+Route::get('exam','Api\InterFaceController@exam');
 
 
 
